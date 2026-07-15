@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmanaTech - Platform Gotong Royong Modern</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .view-section { display: none !important; }
+        .view-section.active { display: block !important; }
+        [lang="ar"] { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen">
+
+    <div id="landingPage" class="view-section active bg-emerald-50/60 min-h-screen">
+        <nav class="bg-white/80 backdrop-blur-md border-b border-emerald-100 p-4 sticky top-0 z-50 shadow-sm">
+            <div class="max-w-6xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-heart text-2xl text-emerald-600"></i>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">AmanaTech</span>
+                </div>
+                <div class="hidden md:flex space-x-8 font-medium text-slate-600 text-sm navbar-links">
+                    <a href="#about" id="navAbout" class="hover:text-emerald-600 transition">Tentang Kami</a>
+                    <a href="#how-it-works" id="navHow" class="hover:text-emerald-600 transition">Cara Kerja</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <select id="langSwitcher" onchange="ubahBahasaGlobal(this.value)" class="bg-white border border-slate-200 rounded-lg text-xs font-semibold px-2 py-1.5 text-slate-600 cursor-pointer focus:outline-none">
+                        <option value="id">🇮🇩 ID</option>
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="ar">🇸🇦 AR</option>
+                    </select>
+                    <button onclick="bukaDashboardWorkspace()" id="btnLogin" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">Masuk Dashboard</button>
+                </div>
+            </div>
+        </nav>
+
+        <header id="heroSection" class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-left hero-text-container">
+                <span id="heroTagline" class="inline-block text-xs font-bold uppercase tracking-widest bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full">Sistem Gotong Royong Era Digital</span>
+                <h1 id="heroTitle" class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">Transparansi Amanah untuk Perlindungan Komunitas</h1>
+                <p id="heroDesc" class="text-base md:text-lg text-slate-600 leading-relaxed whitespace-pre-line">Sistem ini merupakan platform Software as a Service (SaaS) yang memfasilitasi pengelolaan dana gotong royong mandiri dalam sebuah komunitas.
+
+Keanggotaan bersifat inklusif tanpa menerapkan batasan usia maupun kriteria kondisi kesehatan awal. 
+Pendanaan sistem bersumber dari tiga pilihan iuran bulanan anggota, yaitu Silver, Gold, dan Platinum, di mana setiap rencana perubahan tarif harus melalui mekanisme usulan bersama.
+
+Alokasi dana bersifat fleksibel untuk membiayai kebutuhan yang tidak ditanggung pemerintah, sesuai kesepakatan internal komunitas.
+
+Melalui dasbor transparan, anggota dapat memantau batas limit dan status kelayakan klaim bulanan mereka. Pengajuan Klaim akan diverifikasi oleh ketua. Nilai pencairan klaim tidak bersifat tetap, melainkan diatur oleh sistem agar sistem tetap berjalan baik mencegah kebangkrutan.</p>
+                <div class="flex flex-wrap gap-4 pt-2 hero-buttons">
+                    <button onclick="bukaDashboardWorkspace()" id="btnDashboard" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg shadow-emerald-600/20 transition cursor-pointer">Buka Dashboard</button>
+                    <a href="#how-it-works" id="btnLearnMore" class="bg-white border border-slate-200 text-slate-600 px-6 py-3.5 rounded-xl font-bold hover:bg-slate-50 transition shadow-sm flex items-center justify-center">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+            <div class="w-full h-auto">
+                <img src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80" alt="Gotong Royong Komunitas" class="w-full h-80 object-cover rounded-2xl shadow-xl border border-emerald-100 bg-white">
+            </div>
+        </header>
+    </div>
+
+    <div id="dashboardArea" class="view-section">
+        <nav class="bg-white border-b border-slate-200 p-4 shadow-xs sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-heart text-2xl text-emerald-600"></i>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">AmanaTech <span id="badgeMemberArea" class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded ml-1">Member Area</span></span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <select id="langSwitcherDashboard" onchange="ubahBahasaGlobal(this.value)" class="bg-white border border-slate-200 rounded-lg text-xs font-semibold px-2 py-1.5 text-slate-600 cursor-pointer focus:outline-none">
+                        <option value="id">🇮🇩 ID</option>
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="ar">🇸🇦 AR</option>
+                    </select>
+                    <button onclick="keluarKeLanding()" id="btnExit" class="bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-semibold hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition cursor-pointer">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div id="dashboardContentWrapper" class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+            <div id="syncStatus" class="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-xl p-3 text-center font-semibold">
+                <i class="fa-solid fa-sync animate-spin mr-2"></i> Sinkronisasi Basis Data AmanaTech...
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <span id="lblIdentity" class="text-xs text-slate-400 font-bold uppercase tracking-wider block">Identitas Anggota</span>
+                        <h3 id="m_nama" class="text-lg font-bold text-slate-800 mt-1">Silakan Pilih Anggota di Tabel</h3>
+                        <p id="m_id_role" class="text-xs text-slate-400 font-mono mt-0.5">ID: - | Peran: -</p>
+                        <p id="m_kontak" class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-envelope mr-1"></i> -</p>
+                        
+                        <span id="lblAffiliation" class="text-xs text-slate-400 font-bold uppercase tracking-wider block mt-4">Afiliasi & Registrasi</span>
+                        <h4 id="m_komunitas" class="text-sm font-bold text-slate-700 mt-1">-</h4>
+                        <p id="m_tgl_gabung" class="text-xs text-slate-400 mt-0.5">Join: -</p>
+                    </div>
+                    <div>
+                        <span id="lblParticipation" class="text-xs text-slate-400 font-bold uppercase tracking-wider block">Partisipasi & Pembayaran</span>
+                        <h3 id="m_partisipasi" class="text-3xl font-black text-emerald-600 mt-1">0%</h3>
+                        <div class="text-[11px] text-slate-500 mt-2 space-y-1 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <p><span id="lblThisMonth">Bulan Ini</span>: <span id="m_iuran_stat" class="font-bold text-slate-700">-</span></p>
+                            <p><span id="lblLastMonth">Bulan Lalu</span>: <span id="m_prev_iuran_stat" class="font-bold text-slate-600">-</span></p>
+                        </div>
+                        
+                        <span id="lblEligibility" class="text-xs text-slate-400 font-bold uppercase tracking-wider block mt-4">Kelayakan & Batas Klaim</span>
+                        <div id="m_badge_box" class="mt-1 mb-1">
+                            <span class="px-2 py-0.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-400">Menunggu Aksi...</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 font-medium"><span id="lblMaxLimit">Batas Maksimal</span>: <span id="m_claim_limit" class="font-bold text-slate-700">Rp 0</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+                    <div>
+                        <h4 id="lblUploadTitle" class="font-bold text-slate-800 text-sm mb-3">
+                            <i class="fa-solid fa-receipt text-emerald-600 mr-2"></i>Form Upload Bukti Iuran
+                        </h4>
+                        <form id="formBuktiBayar" onsubmit="handleFormSubmit(event)" class="space-y-3">
+                            <div>
+                                <label id="lblFormId" class="block text-[11px] font-bold text-slate-400 uppercase">Member ID Aktif</label>
+                                <input type="text" id="formInputId" readonly required class="w-full bg-slate-50 border border-slate-200 text-slate-700 px-3 py-2 rounded-xl text-xs font-mono font-bold focus:outline-none mt-1" placeholder="Pilih anggota di tabel...">
+                            </div>
+                            <div>
+                                <label id="lblFormFile" class="block text-[11px] font-bold text-slate-400 uppercase">Berkas Bukti Transfer (Gambar)</label>
+                                <input type="file" id="formInputFile" accept="image/*" required class="w-full bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-xl text-xs mt-1 cursor-pointer focus:outline-none file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-[11px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                            </div>
+                            <button type="submit" id="btnSubmitForm" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-md transition cursor-pointer mt-2 flex items-center justify-center">
+                                <i class="fa-solid fa-paper-plane mr-2"></i>Kirim Bukti Bayar
+                            </button>
+                        </form>
+                    </div>
+                    <div id="formNotification" class="hidden text-[11px] font-medium p-2.5 rounded-xl border mt-3"></div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                    <h4 id="lblTableTitle" class="font-bold text-slate-800 text-sm">
+                        <i class="fa-solid fa-users text-emerald-600 mr-2"></i>Daftar Riil Anggota (Tab: Member's_Data)
+                    </h4>
+                    <span id="rowCounter" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-xl">Baris: 0 / 0</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                                <th class="p-3" id="thId">ID Anggota</th>
+                                <th class="p-3" id="thName">Nama Lengkap</th>
+                                <th class="p-3" id="thCommunity">Komunitas Asal</th>
+                                <th class="p-3" id="thRate">Tingkat Partisipasi</th>
+                                <th class="p-3" id="thEligible">Kelayakan Klaim</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mainSheetsTableBody" class="divide-y divide-slate-100">
+                            <tr><td colspan="5" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Menghubungkan ke database Google Sheet...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwFfZxO4Ca_zEGGRlSxk8DcMTBcGeTtmownumDC51wjLH5Lu-igjhr4vuOEyJ0Z2hRQGQ/exec";
+
+        let DATA_MEMBER_RIIL = [];
+        let INDEX_BARIS_AKTIF = -1;
+        let BAHASA_AKTIF = "id";
+
+        function getVal(obj, keyVariants) {
+            if (!obj) return "";
+            for (let variant of keyVariants) {
+                if (obj[variant] !== undefined && obj[variant] !== null) return obj[variant];
+            }
+            return "";
+        }
+
+        function formatPersentase(nilai) {
+            if (nilai === "" || nilai === undefined || nilai === null) return "0%";
+            let angka = parseFloat(nilai);
+            if (isNaN(angka)) return nilai; 
+            if (angka <= 1 && angka > 0) return (angka * 100).toFixed(0) + "%";
+            return String(nilai).includes("%") ? nilai : angka + "%";
+        }
+
+        function formatRupiahTanpaKoma(angka) {
+            if(!angka || isNaN(angka)) return "Rp 0";
+            let bulat = Math.floor(parseFloat(angka)); 
+            return "Rp " + bulat.toLocaleString('id-ID');
+        }
+
+        function formatTanggalSaja(strTanggal) {
+            if (!strTanggal) return "-";
+            let tanggalObj = new Date(strTanggal);
+            if (isNaN(tanggalObj.getTime())) {
+                if (String(strTanggal).includes("T")) return String(strTanggal).split("T")[0];
+                return strTanggal;
+            }
+            let tgl = String(tanggalObj.getDate()).padStart(2, '0');
+            let bulanID = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            let bulanEN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let bulanAR = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+            
+            let bln = bulanID[tanggalObj.getMonth()];
+            if (BAHASA_AKTIF === "en") bln = bulanEN[tanggalObj.getMonth()];
+            if (BAHASA_AKTIF === "ar") bln = bulanAR[tanggalObj.getMonth()];
+            return `${tgl} ${bln} ${tanggalObj.getFullYear()}`;
+        }
+
+        function bukaDashboardWorkspace() {
+            document.getElementById('landingPage').classList.remove('active');
+            document.getElementById('dashboardArea').classList.add('active');
+            sinkronisasikanDataMemberArea();
+        }
+
+        function keluarKeLanding() {
+            document.getElementById('dashboardArea').classList.remove('active');
+            document.getElementById('landingPage').classList.add('active');
+        }
+
+        async function sinkronisasikanDataMemberArea() {
+            try {
+                const respon = await fetch(GOOGLE_SHEETS_WEBAPP_URL);
+                const jsonRespon = await respon.json();
+                let rawMembers = jsonRespon["Member's_Data"] || jsonRespon.membersData || [];
+
+                if (rawMembers.length > 0) {
+                    DATA_MEMBER_RIIL = rawMembers.filter(m => getVal(m, ["Member's ID", "MembersID", "memberId"]) !== "");
+                    renderTabelNavigator();
+                    if(INDEX_BARIS_AKTIF === -1) INDEX_BARIS_AKTIF = 0;
+                    tampilkanProfilBarisAktif();
+                    updateBannerStatus(true);
+                } else {
+                    throw new Error("Data Kosong");
+                }
+            } catch (err) {
+                console.error(err);
+                updateBannerStatus(false);
+            }
+        }
+
+        function updateBannerStatus(sukses) {
+            const banner = document.getElementById('syncStatus');
+            if(sukses) {
+                banner.className = "bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl p-3 text-center font-semibold";
+                if(BAHASA_AKTIF === "id") banner.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i> Sinkronisasi Sukses! Sistem terhubung ke Tab Member's_Data.`;
+                if(BAHASA_AKTIF === "en") banner.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i> Sync Success! Connected to Member's_Data Tab.`;
+                if(BAHASA_AKTIF === "ar") banner.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i> تم المزامنة بنجاح! الاتصال بقاعدة البيانات الحقيقية.`;
+            } else {
+                banner.className = "bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl p-3 text-center font-semibold";
+                if(BAHASA_AKTIF === "id") banner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-2"></i> Sinkronisasi Gagal. Periksa konfigurasi Apps Script Anda.`;
+                if(BAHASA_AKTIF === "en") banner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-2"></i> Sync Failed. Check your Apps Script configurations.`;
+                if(BAHASA_AKTIF === "ar") banner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-2"></i> فشلت المزامنة. يرجى التحقق من واجهة البرمجة.`;
+            }
+        }
+
+        function renderTabelNavigator() {
+            const tbody = document.getElementById('mainSheetsTableBody');
+            tbody.innerHTML = "";
+            
+            DATA_MEMBER_RIIL.forEach((member, index) => {
+                let idAnggota = getVal(member, ["Member's ID", "MembersID", "memberId"]);
+                let namaAnggota = getVal(member, ["Name", "name"]);
+                let komunitas = getVal(member, ["Origin Community", "OriginCommunity"]);
+                let prRate = getVal(member, ["Participation Rate", "ParticipationRate"]);
+                let eligible = getVal(member, ["Claim Eligibility", "ClaimEligibility"]);
+
+                let isEligibleStr = String(eligible).toLowerCase();
+                const isEligible = isEligibleStr.includes("eligible") || isEligibleStr.includes("layak");
+
+                let displayEligible = isEligible ? (BAHASA_AKTIF === "ar" ? "مؤهل" : "Eligible") : (BAHASA_AKTIF === "ar" ? "غير مؤهل" : "Not Eligible");
+
+                tbody.innerHTML += `
+                    <tr onclick="pilihIndeksBaris(${index})" class="hover:bg-slate-50 cursor-pointer transition border-b border-slate-100 ${index === INDEX_BARIS_AKTIF ? 'bg-emerald-50/50 font-semibold' : ''}">
+                        <td class="p-3 font-mono text-slate-600">${idAnggota || '-'}</td>
+                        <td class="p-3 text-emerald-700 font-medium underline">${namaAnggota || '-'}</td>
+                        <td class="p-3 text-slate-500">${komunitas || '-'}</td>
+                        <td class="p-3 text-slate-800">${formatPersentase(prRate)}</td>
+                        <td class="p-3">
+                            <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${isEligible ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                                ${displayEligible}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function pilihIndeksBaris(idx) {
+            INDEX_BARIS_AKTIF = idx;
+            renderTabelNavigator();
+            tampilkanProfilBarisAktif();
+        }
+
+        function tampilkanProfilBarisAktif() {
+            if(DATA_MEMBER_RIIL.length === 0 || INDEX_BARIS_AKTIF === -1) return;
+            
+            const member = DATA_MEMBER_RIIL[INDEX_BARIS_AKTIF];
+            let mId = getVal(member, ["Member's ID", "MembersID", "memberId"]);
+            let nama = getVal(member, ["Name", "name"]);
+            let email = getVal(member, ["Email", "email"]);
+            let role = getVal(member, ["Role", "role"]) || "Member";
+            let mobile = getVal(member, ["Mobile", "mobile"]);
+            let komunitas = getVal(member, ["Origin Community", "OriginCommunity"]);
+            let joinDate = getVal(member, ["Join's Date", "JoinsDate", "joinDate"]);
+            let prRate = getVal(member, ["Participation Rate", "ParticipationRate"]);
+            let curPayment = getVal(member, ["Current Month Payment", "CurrentMonthPayment"]);
+            let prevPayment = getVal(member, ["Previous Month Payment", "PreviousMonthPayment"]); 
+            let eligible = getVal(member, ["Claim Eligibility", "ClaimEligibility"]);
+            let limitKlaim = getVal(member, ["Claim Limit", "ClaimLimit"]);
+
+            document.getElementById('m_nama').innerText = nama || "-";
+            document.getElementById('m_id_role').innerText = `ID: ${mId || '-'} | ${BAHASA_AKTIF === 'ar' ? 'الدور' : 'Peran'}: ${role}`;
+            document.getElementById('m_kontak').innerHTML = `<i class="fa-solid fa-envelope mr-1"></i> ${email || '-'} | <i class="fa-solid fa-phone mr-1"></i> ${mobile || '-'}`;
+            document.getElementById('m_komunitas').innerText = komunitas || "-";
+            document.getElementById('m_tgl_gabung').innerText = `${BAHASA_AKTIF === 'ar' ? 'انضم' : 'Join'}: ${formatTanggalSaja(joinDate)}`;
+            document.getElementById('m_partisipasi').innerText = formatPersentase(prRate);
+            
+            let transPay = (val) => {
+                let v = String(val).toLowerCase();
+                if(v === "yes" || v === "ya" || v === "paid") return BAHASA_AKTIF === "ar" ? "مدفوع" : (BAHASA_AKTIF === "en" ? "Paid" : "Ya");
+                return BAHASA_AKTIF === "ar" ? "غير مدفوع" : (BAHASA_AKTIF === "en" ? "Unpaid" : "Tidak");
+            };
+            document.getElementById('m_iuran_stat').innerText = transPay(curPayment);
+            document.getElementById('m_prev_iuran_stat').innerText = transPay(prevPayment);
+            document.getElementById('m_claim_limit').innerText = formatRupiahTanpaKoma(limitKlaim);
+
+            document.getElementById('formInputId').value = mId;
+
+            const badgeBox = document.getElementById('m_badge_box');
+            let isEligible = String(eligible).toLowerCase().includes("eligible") || String(eligible).toLowerCase().includes("layak");
+            if(isEligible) {
+                badgeBox.innerHTML = `<span class="px-2.5 py-1 text-xs font-bold rounded-xl bg-emerald-100 text-emerald-800"><i class="fa-solid fa-circle-check mr-1"></i>${BAHASA_AKTIF === 'ar' ? 'مؤهل للاستحقاق' : 'Eligible'}</span>`;
+            } else {
+                badgeBox.innerHTML = `<span class="px-2.5 py-1 text-xs font-bold rounded-xl bg-amber-100 text-amber-800"><i class="fa-solid fa-circle-xmark mr-1"></i>${BAHASA_AKTIF === 'ar' ? 'غير مؤهل' : 'Not Eligible'}</span>`;
+            }
+
+            let lblBaris = BAHASA_AKTIF === "en" ? "Row" : (BAHASA_AKTIF === "ar" ? "صف" : "Baris");
+            document.getElementById('rowCounter').innerText = `${lblBaris}: ${INDEX_BARIS_AKTIF + 1} / ${DATA_MEMBER_RIIL.length}`;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const memberId = document.getElementById('formInputId').value;
+            const fileInput = document.getElementById('formInputFile').files[0];
+            const notification = document.getElementById('formNotification');
+            const submitBtn = document.getElementById('btnSubmitForm');
+
+            if (!memberId) {
+                alert("Silakan pilih ID Anggota dari tabel terlebih dahulu!");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-2"></i>Mengirim...`;
+            notification.className = "text-[11px] font-medium p-2.5 rounded-xl border bg-blue-50 border-blue-200 text-blue-800 block";
+            notification.innerText = "Sedang memproses berkas gambar dan mengunggah ke Google Drive...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(fileInput);
+            reader.onload = function () {
+                const fileBase64 = reader.result;
+                const payload = {
+                    memberId: memberId,
+                    fileBase64: fileBase64,
+                    fileName: fileInput.name
+                };
+
+                if (typeof google !== 'undefined' && google.script && google.script.run) {
+                    google.script.run
+                        .withSuccessHandler(function(respon) {
+                            tampilkanResponUpload(respon, notification, submitBtn);
+                        })
+                        .withFailureHandler(function(err) {
+                            tampilkanResponUpload({ sukses: false, pesan: err.toString() }, notification, submitBtn);
+                        })
+                        .simpanBuktiPembayaran(payload);
+                } else {
+                    fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    }).then(() => {
+                        tampilkanResponUpload({ sukses: true, pesan: "Bukti berhasil terkirim via Web API!" }, notification, submitBtn);
+                    }).catch(err => {
+                        tampilkanResponUpload({ sukses: false, pesan: "Gagal: " + err.toString() }, notification, submitBtn);
+                    });
+                }
+            };
+        }
+
+        function tampilkanResponUpload(respon, notification, submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane mr-2"></i>Kirim Bukti Bayar`;
+            document.getElementById('formBuktiBayar').reset();
+
+            if (respon.sukses) {
+                notification.className = "text-[11px] font-medium p-2.5 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800 block";
+                notification.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> ${respon.pesan}`;
+                sinkronisasikanDataMemberArea();
+            } else {
+                notification.className = "text-[11px] font-medium p-2.5 rounded-xl border bg-rose-50 border-rose-200 text-rose-800 block";
+                notification.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1"></i> ${respon.pesan}`;
+            }
+        }
+
+        // ==========================================
+        // KAMUS BAHASA KESELURUHAN (3 BAHASA FULL)
+        // ==========================================
+        const kamusBahasa = {
+            id: {
+                navAbout: "Tentang Kami", navHow: "Cara Kerja", btnLogin: "Masuk Dashboard",
+                heroTagline: "Sistem Gotong Royong Era Digital",
+                heroTitle: "Transparansi Amanah untuk Perlindungan Komunitas",
+                heroDesc: `Sistem ini merupakan platform Software as a Service (SaaS) yang memfasilitasi pengelolaan dana gotong royong mandiri dalam sebuah komunitas.
+
+Keanggotaan bersifat inklusif tanpa menerapkan batasan usia maupun kriteria kondisi kesehatan awal. 
+Pendanaan sistem bersumber dari tiga pilihan iuran bulanan anggota, yaitu Silver, Gold, dan Platinum, di mana setiap rencana perubahan tarif harus melalui mekanisme usulan bersama.
+
+Alokasi dana bersifat fleksibel untuk membiayai kebutuhan yang tidak ditanggung pemerintah, sesuai kesepakatan internal komunitas.
+
+Melalui dasbor transparan, anggota dapat memantau batas limit dan status kelayakan klaim bulanan mereka. Pengajuan Klaim akan diverifikasi oleh ketua. Nilai pencairan klaim tidak bersifat tetap, melainkan diatur oleh sistem agar sistem tetap berjalan baik mencegah kebangkrutan.`,
+                btnDashboard: "Buka Dashboard", btnLearnMore: "Pelajari Lebih Lanjut",
+                badgeMemberArea: "Member Area", btnExit: " Keluar",
+                lblIdentity: "Identitas Anggota", lblAffiliation: "Afiliasi & Registrasi",
+                lblParticipation: "Partisipasi & Pembayaran", lblThisMonth: "Bulan Ini", lblLastMonth: "Bulan Lalu",
+                lblEligibility: "Kelayakan & Batas Klaim", lblMaxLimit: "Batas Maksimal",
+                lblTableTitle: "Daftar Riil Anggota (Tab: Member's_Data)",
+                thId: "ID Anggota", thName: "Nama Lengkap", thCommunity: "Komunitas Asal", thRate: "Tingkat Partisipasi", thEligible: "Kelayakan Klaim",
+                lblUploadTitle: "Form Upload Bukti Iuran", lblFormId: "Member ID Aktif", lblFormFile: "Berkas Bukti Transfer (Gambar)", btnSubmitForm: "Kirim Bukti Bayar",
+                dir: "ltr", align: "left"
+            },
+            en: {
+                navAbout: "About Us", navHow: "How It Works", btnLogin: "Login Dashboard",
+                heroTagline: "Digital Era Mutual Aid System",
+                heroTitle: "Trusted Transparency for Community Protection",
+                heroDesc: `This system is a Software as a Service (SaaS) platform that facilitates the independent management of mutual aid funds within a community.
+
+Membership is inclusive, with no age restrictions or pre-existing health condition criteria. System funding is sourced from three monthly membership contribution options, namely Silver, Gold, and Platinum, where any proposed tariff changes must go through a joint proposal mechanism.
+
+Fund allocation is flexible to finance needs not covered by the government, in accordance with the community's internal agreement.
+
+Through a transparent dashboard, members can monitor their monthly claim limits and eligibility status. Claim submissions will be verified by the chairman. The claim payout value is not fixed, but rather regulated by the system to ensure the system runs smoothly and prevents bankruptcy.`,
+                btnDashboard: "Open Dashboard", btnLearnMore: "Learn More",
+                badgeMemberArea: "Member Area", btnExit: " Logout",
+                lblIdentity: "Member Identity", lblAffiliation: "Affiliation & Registration",
+                lblParticipation: "Participation & Payment", lblThisMonth: "This Month", lblLastMonth: "Last Month",
+                lblEligibility: "Eligibility & Claim Limit", lblMaxLimit: "Maximum Limit",
+                lblTableTitle: "Real Member List (Tab: Member's_Data)",
+                thId: "Member ID", thName: "Full Name", thCommunity: "Community Origin", thRate: "Participation Rate", thEligible: "Claim Eligibility",
+                lblUploadTitle: "Contribution Receipt Form", lblFormId: "Active Member ID", lblFormFile: "Transfer Receipt File (Image)", btnSubmitForm: "Submit Receipt",
+                dir: "ltr", align: "left"
+            },
+            ar: {
+                navAbout: "معلومات عنا", navHow: "كيف نعمل", btnLogin: "لوحة التحكم",
+                heroTagline: "نظام التكافل الاجتماعي للمجتمع الرقمي",
+                heroTitle: "الشفافية الموثوقة لحماية المجتمع المحلي",
+                heroDesc: `هذا النظام هو عبارة عن منصة البرمجيات كخدمة (SaaS) تسهل إدارة صناديق التكافل الاجتماعي المستقلة داخل المجتمع.
+
+العضوية شاملة للجميع دون تطبيق قيود على العمر أو معايير الحالة الصحية الأولية. وتأتي تمويلات النظام من ثلاثة خيارات للاشتراكات الشهرية للأعضاء، وهي الفضية، والذهبية، والبلاتينية، حيث يجب أن تمر أي خطة لتغيير الأسعار عبر آلية مقترحات مشتركة.
+
+تخصيص الأموال مرن لتمويل الاحتياجات التي لا تغطيها الحكومة، وفقاً للاتفاق الداخلي للمجتمع.
+
+ومن خلال لوحة تحكم شفافة، يمكن للأعضاء مراقبة حدود مطالباتهم الشهرية وحالة أهليتها. سيتم التحقق من طلبات المطالبات من قبل رئيس الجمعية. إن قيمة صرف المطالبات ليست ثابتة، بل يتم تنظيمها بواسطة النظام لضمان استمرارية عمل النظام بشكل جيد ومنع الإفلاس.`,
+                btnDashboard: "افتح لوحة التحكم", btnLearnMore: "يتعلم أكثر",
+                badgeMemberArea: "منطقة الأعضاء", btnExit: " خروج",
+                lblIdentity: "هوية العضو", lblAffiliation: "الانتساب والتسجيل",
+                lblParticipation: "المشاركة والدفع", lblThisMonth: "هذا الشهر", lblLastMonth: "الشهر الماضي",
+                lblEligibility: "الأهلية وحدود المطالبة", lblMaxLimit: "الحد الأقصى",
+                lblTableTitle: "قائمة الأعضاء الحقيقية (علامة التبويب: Member's_Data)",
+                thId: "معرف العضو", thName: "الاسم الكامل", thCommunity: "المجتمع الأصل", thRate: "معدل المشاركة", thEligible: "أهلية المطالبة",
+                lblUploadTitle: "نموذج تحميل إيصال الاشتراك", lblFormId: "معرف العضو النشط", lblFormFile: "ملف إيصال التحويل (صورة)", btnSubmitForm: "إرسال الإيصال",
+                dir: "rtl", align: "right"
+            }
+        };
+
+        function ubahBahasaGlobal(kodeBahasa) {
+            BAHASA_AKTIF = kodeBahasa;
+            const dataLang = kamusBahasa[kodeBahasa];
+            if (!dataLang) return;
+
+            document.documentElement.lang = kodeBahasa;
+            
+            // Perbarui sinkronisasi dropdown bahasa antar-halaman
+            document.getElementById('langSwitcher').value = kodeBahasa;
+            document.getElementById('langSwitcherDashboard').value = kodeBahasa;
+
+            // Atur arah teks (RTL/LTR) & perataan teks untuk struktur kontainer tulisan utama
+            document.body.setAttribute('dir', dataLang.dir);
+            
+            const heroTextContainer = document.querySelector('.hero-text-container');
+            if(heroTextContainer) {
+                if(dataLang.dir === 'rtl') {
+                    heroTextContainer.classList.remove('text-left');
+                    heroTextContainer.classList.add('text-right');
+                } else {
+                    heroTextContainer.classList.remove('text-right');
+                    heroTextContainer.classList.add('text-left');
+                }
+            }
+
+            const heroButtons = document.querySelector('.hero-buttons');
+            if(heroButtons) {
+                if(dataLang.dir === 'rtl') {
+                    heroButtons.classList.add('flex-row-reverse');
+                } else {
+                    heroButtons.classList.remove('flex-row-reverse');
+                }
+            }
+
+            // Penerjemahan Elemen UI Statis berbasis ID teks
+            Object.keys(dataLang).forEach(key => {
+                const elemen = document.getElementById(key);
+                if (elemen && key !== 'dir' && key !== 'align') {
+                    if(key === 'btnExit') {
+                        elemen.innerHTML = `<i class="fa-solid fa-right-from-bracket mr-1"></i> ` + dataLang[key];
+                    } else if(key === 'btnSubmitForm') {
+                        elemen.innerHTML = `<i class="fa-solid fa-paper-plane mr-2"></i>` + dataLang[key];
+                    } else if(key === 'lblTableTitle') {
+                        elemen.innerHTML = `<i class="fa-solid fa-users text-emerald-600 mr-2"></i>` + dataLang[key];
+                    } else if(key === 'lblUploadTitle') {
+                        elemen.innerHTML = `<i class="fa-solid fa-receipt text-emerald-600 mr-2"></i>` + dataLang[key];
+                    } else {
+                        elemen.innerText = dataLang[key];
+                    }
+                }
+            });
+
+            // Refresh komponen data riil yang dinamis agar format bahasa barunya ikut berganti
+            if(DATA_MEMBER_RIIL.length > 0) {
+                renderTabelNavigator();
+                tampilkanProfilBarisAktif();
+                updateBannerStatus(true);
+            }
+        }
+    </script>
+</body>
+</html>
